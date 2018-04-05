@@ -1,0 +1,40 @@
+package com.ofi.positions;
+
+//import org.springframework.web.client.RestTemplate;
+import org.apache.http.*;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
+
+rule "testRule"
+dialect "mvel"
+when f : Fund()
+then 
+   System.out.println("Got Fund:" + f.code)
+   String result = getPositions(f.code)
+   System.out.println("Position:" + result)
+   f.marketValuePercentage = result
+end
+
+function String getPositions(String fundCode) {
+    System.out.println("In getPositions:" + fundCode);
+    
+    DefaultHttpClient httpclient = new DefaultHttpClient();
+
+    HttpHost target = new HttpHost("localhost", 8090, "http");
+    HttpGet getRequest = new HttpGet("/positions-test?fund_code=" + fundCode);
+
+    System.out.println("executing request to " + target);
+
+    HttpResponse httpResponse = httpclient.execute(target, getRequest);
+    HttpEntity entity = httpResponse.getEntity();
+    
+    //TODO: check response code.  What do you do if error??
+    System.out.println("Status:" + httpResponse.getStatusLine());
+      
+    String result = EntityUtils.toString(entity);
+
+    System.out.println("Result:" + result);
+    return result;	
+}
