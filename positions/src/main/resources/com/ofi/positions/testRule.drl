@@ -1,3 +1,63 @@
 package com.ofi.positions;
 
-package com.ofi.positions; //import org.springframework.web.client.RestTemplate; import org.apache.http.*; import org.apache.http.client.methods.HttpGet; import org.apache.http.impl.client.DefaultHttpClient; import org.apache.http.util.EntityUtils; import org.codehaus.jackson.JsonGenerationException; import org.codehaus.jackson.map.JsonMappingException; import org.codehaus.jackson.map.ObjectMapper; dialect "mvel" rule "testRule" //dialect "mvel" no-loop true when f : Fund() then System.out.println("Got Fund:" + f.code) // String result = getPositions(f.code) Fund aFundFromService = getPositionsJson(f.code) // System.out.println("Position:" + result) System.out.println("Position:" + aFundFromService.marketValuePercentage) //f.marketValuePercentage = result f.marketValuePercentage = aFundFromService.marketValuePercentage f.name = aFundFromService.name modify (f) end rule "toLowerCase" when f : Fund( name != null ) then System.out.println("Working on Fund: " + f.code + ", with name: " + f.name) f.name = f.name.toLowerCase() end function String getPositions(String fundCode) { System.out.println("In getPositions:" + fundCode); DefaultHttpClient httpclient = new DefaultHttpClient(); HttpHost target = new HttpHost("localhost", 8090, "http"); HttpGet getRequest = new HttpGet("/positions-test?fund_code=" + fundCode); System.out.println("executing request to " + target); HttpResponse httpResponse = httpclient.execute(target, getRequest); HttpEntity entity = httpResponse.getEntity(); //TODO: check response code. What do you do if error?? System.out.println("Status:" + httpResponse.getStatusLine()); String result = EntityUtils.toString(entity); System.out.println("Result:" + result); return result;	} function Fund getPositionsJson(String fundCode) { System.out.println("In getPositions:" + fundCode); DefaultHttpClient httpclient = new DefaultHttpClient(); HttpHost target = new HttpHost("localhost", 8090, "http"); HttpGet getRequest = new HttpGet("/positions-test_json?fund_code=" + fundCode); System.out.println("executing request to " + target); HttpResponse httpResponse = httpclient.execute(target, getRequest); HttpEntity entity = httpResponse.getEntity(); //TODO: check response code. What do you do if error?? System.out.println("Status:" + httpResponse.getStatusLine()); String jsonInString = EntityUtils.toString(entity); System.out.println("Jjjjjjjjjson " + jsonInString); ObjectMapper mapper = new ObjectMapper(); Fund aFund = mapper.readValue(jsonInString, Fund.class); System.out.println("Result:" + aFund.getName()); return aFund;	}
+package com.ofi.positions; 
+
+//import org.springframework.web.client.RestTemplate; 
+import org.apache.http.*; 
+import org.apache.http.client.methods.HttpGet; 
+import org.apache.http.impl.client.DefaultHttpClient; 
+import org.apache.http.util.EntityUtils;
+import org.codehaus.jackson.JsonGenerationException; 
+import org.codehaus.jackson.map.JsonMappingException; 
+import org.codehaus.jackson.map.ObjectMapper; 
+
+dialect "mvel" 
+rule "testRule" 
+//dialect "mvel" 
+no-loop true 
+when f : Fund() 
+then System.out.println("Got Fund:" + f.code) 
+    // String result = getPositions(f.code) 
+    Fund aFundFromService = getPositionsJson(f.code) 
+    // System.out.println("Position:" + result) 
+    System.out.println("Position:" + aFundFromService.marketValuePercentage) 
+    //f.marketValuePercentage = result 
+    f.marketValuePercentage = aFundFromService.marketValuePercentage 
+    f.name = aFundFromService.name modify (f) 
+end
+
+rule "toLowerCase" 
+when f : Fund( name != null ) 
+then 
+    System.out.println("Working on Fund: " + f.code + ", with name: " + f.name) 
+    f.name = f.name.toLowerCase()
+end 
+
+function String getPositions(String fundCode) { 
+    System.out.println("In getPositions:" + fundCode); DefaultHttpClient httpclient = new DefaultHttpClient(); 
+    HttpHost target = new HttpHost("localhost", 8090, "http");
+    HttpGet getRequest = new HttpGet("/positions-test?fund_code=" + fundCode); 
+    System.out.println("executing request to " + target); 
+    HttpResponse httpResponse = httpclient.execute(target, getRequest); 
+    HttpEntity entity = httpResponse.getEntity(); 
+    //TODO: check response code. What do you do if error?? 
+    System.out.println("Status:" + httpResponse.getStatusLine()); 
+    String result = EntityUtils.toString(entity); 
+    System.out.println("Result:" + result); return result;	
+} 
+function Fund getPositionsJson(String fundCode) { 
+    System.out.println("In getPositions:" + fundCode); 
+    DefaultHttpClient httpclient = new DefaultHttpClient(); 
+    HttpHost target = new HttpHost("localhost", 8090, "http"); 
+    HttpGet getRequest = new HttpGet("/positions-test_json?fund_code=" + fundCode); 
+    System.out.println("executing request to " + target); 
+    HttpResponse httpResponse = httpclient.execute(target, getRequest); 
+    HttpEntity entity = httpResponse.getEntity(); 
+    //TODO: check response code. What do you do if error?? 
+    System.out.println("Status:" + httpResponse.getStatusLine()); 
+    String jsonInString = EntityUtils.toString(entity); 
+    System.out.println("Jjjjjjjjjson " + jsonInString); 
+    ObjectMapper mapper = new ObjectMapper(); 
+    Fund aFund = mapper.readValue(jsonInString, Fund.class); 
+    System.out.println("Result:" + aFund.getName()); return aFund;	
+}
