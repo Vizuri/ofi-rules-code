@@ -17,22 +17,19 @@ when f : Fund()
 then
     System.out.println("Got Fund:" + f.code + ":" + f.name)
     //String result = getPositions(f.code)
+    modify (f) {
     Fund aFundFromService = getPositionsJson(f.code)
     // System.out.println("Position:" + result)
     System.out.println("Position:" + aFundFromService.marketValuePercentage)
     //f.marketValuePercentage = result
- 
-
-	modify( f ) {
         f.marketValuePercentage = aFundFromService.marketValuePercentage
         f.name = aFundFromService.name 
-	}
+    }
     
     
 end
 
 rule "toLowerCase"
-dialect "mvel"
 when f : Fund( ! (name == null || name.trim.empty) )
 then
     System.out.println("Working on Fund: " + f.code + ", with name: " + f.name)
@@ -40,7 +37,6 @@ then
 end
 
 rule "toLowerCase2"
-dialect "mvel"
 when f : Fund( name != null )
 then
     System.out.println("Working on Fund2: " + f.code + ", with name: " + f.name)
