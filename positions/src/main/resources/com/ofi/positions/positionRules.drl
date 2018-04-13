@@ -15,7 +15,7 @@ dialect "mvel"
 no-loop true
 when f : Fund()
 then
-    System.out.println("Got Fund:" + f.code + ":" f.name)
+    System.out.println("Got Fund:" + f.code + ":" + f.name)
     //String result = getPositions(f.code)
     Fund aFundFromService = getPositionsJson(f.code)
     // System.out.println("Position:" + result)
@@ -34,7 +34,7 @@ then
 end
 
 rule "toLowerCase2"
-when f : Fund( name != null )
+when f : Fund( !name.trim.empty  )
 then
     System.out.println("Working on Fund2: " + f.code + ", with name: " + f.name)
     f.name = f.name.toLowerCase()
