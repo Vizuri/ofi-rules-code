@@ -11,7 +11,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 dialect "mvel" 
 
 rule "testRule" 
-//dialect "mvel" 
+dialect "mvel" 
 no-loop true 
 when f : Fund() 
 then 
