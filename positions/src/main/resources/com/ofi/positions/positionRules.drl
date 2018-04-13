@@ -33,6 +33,13 @@ then
     f.name = f.name.toLowerCase()
 end
 
+rule "toLowerCase2"
+when f : Fund( )
+then
+    System.out.println("Working on Fund2: " + f.code + ", with name: " + f.name)
+    f.name = f.name.toLowerCase()
+end
+
 function String getPositions(String fundCode) {
     System.out.println("In getPositions:" + fundCode);
     DefaultHttpClient httpclient = new DefaultHttpClient();
