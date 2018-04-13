@@ -1,7 +1,5 @@
 package com.ofi.positions;
 
-package com.ofi.positions; 
-
 //import org.springframework.web.client.RestTemplate; 
 import org.apache.http.*; 
 import org.apache.http.client.methods.HttpGet; 
