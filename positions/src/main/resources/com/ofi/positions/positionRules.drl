@@ -17,16 +17,15 @@ when f : Fund()
 then
     System.out.println("Got Fund:" + f.code + ":" + f.name)
     //String result = getPositions(f.code)
-    modify (f) {
     Fund aFundFromService = getPositionsJson(f.code)
     // System.out.println("Position:" + result)
     System.out.println("Position:" + aFundFromService.marketValuePercentage)
     //f.marketValuePercentage = result
-        f.marketValuePercentage = aFundFromService.marketValuePercentage
-        f.name = aFundFromService.name 
+    f.marketValuePercentage = aFundFromService.marketValuePercentage
+    //f.name = aFundFromService.name 
+    modify (f) {
+       setName(aFundFromService.name)
     }
-    
-    
 end
 
 rule "toLowerCase"
