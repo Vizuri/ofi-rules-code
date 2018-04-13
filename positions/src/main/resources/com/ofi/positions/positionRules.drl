@@ -27,7 +27,7 @@ then
 end
 
 rule "toLowerCase"
-when f : Fund( name != null, name != "" )
+when f : Fund( name != null && !name.trim.empty )
 then
     System.out.println("Working on Fund: " + f.code + ", with name: " + f.name)
     f.name = f.name.toLowerCase()
