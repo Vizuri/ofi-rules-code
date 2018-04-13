@@ -1,9 +1,0 @@
-package com.ofi.positions;
-
-import java.lang.Number;
-
-rule "myGudedRule"
-	dialect "mvel"
-	when
-	then
-end
