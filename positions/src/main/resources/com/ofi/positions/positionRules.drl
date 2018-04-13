@@ -22,7 +22,7 @@ then
     System.out.println("Position:" + aFundFromService.marketValuePercentage)
     //f.marketValuePercentage = result
  
-    
+
 	modify( f ) {
         f.marketValuePercentage = aFundFromService.marketValuePercentage
         f.name = aFundFromService.name 
