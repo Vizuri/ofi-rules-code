@@ -15,7 +15,7 @@ dialect "mvel"
 no-loop true
 when f : Fund()
 then
-    System.out.println("Got Fund:" + f.code)
+    System.out.println("Got Fund:" + f.code + ":" f.name)
     //String result = getPositions(f.code)
     Fund aFundFromService = getPositionsJson(f.code)
     // System.out.println("Position:" + result)
