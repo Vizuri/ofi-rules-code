@@ -14,7 +14,7 @@ rule "testRule"
 dialect "mvel" 
 no-loop true 
 when f : Fund() 
-then 
+then
     System.out.println("Got Fund:" + f.code)
     // String result = getPositions(f.code) 
     Fund aFundFromService = getPositionsJson(f.code) 
