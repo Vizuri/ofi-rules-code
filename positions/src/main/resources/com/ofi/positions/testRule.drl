@@ -10,7 +10,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 dialect "mvel" 
 
-rule "testRule" 
+rule "testRule2" 
 dialect "mvel" 
 no-loop true 
 when f : Fund() 
