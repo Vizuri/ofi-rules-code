@@ -45,6 +45,7 @@ function String getPositions(String fundCode) {
     String result = EntityUtils.toString(entity); 
     System.out.println("Result:" + result); return result;	
 } 
+
 function Fund getPositionsJson(String fundCode) { 
     System.out.println("In getPositions:" + fundCode); 
     DefaultHttpClient httpclient = new DefaultHttpClient(); 
