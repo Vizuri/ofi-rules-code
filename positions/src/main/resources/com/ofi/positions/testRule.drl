@@ -14,7 +14,7 @@ rule "testRule"
 no-loop true 
 when f : Fund() 
 then 
-    System.out.println("Got Fund:" + f.code) 
+    System.out.println("Got Fund:" + f.code)
     // String result = getPositions(f.code) 
     Fund aFundFromService = getPositionsJson(f.code) 
     // System.out.println("Position:" + result) 
@@ -32,7 +32,8 @@ then
 end 
 
 function String getPositions(String fundCode) { 
-    System.out.println("In getPositions:" + fundCode); DefaultHttpClient httpclient = new DefaultHttpClient(); 
+    System.out.println("In getPositions:" + fundCode); 
+    DefaultHttpClient httpclient = new DefaultHttpClient(); 
     HttpHost target = new HttpHost("localhost", 8090, "http");
     HttpGet getRequest = new HttpGet("/positions-test?fund_code=" + fundCode); 
     System.out.println("executing request to " + target); 
