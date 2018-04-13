@@ -9,6 +9,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper; 
 
 dialect "mvel" 
+
 rule "testRule" 
 //dialect "mvel" 
 no-loop true 
